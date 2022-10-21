@@ -1,0 +1,13 @@
+const express = require("express");
+const { registerUser, activateAccount, login,resendEmailVerification,passwordResendCode } = require("../controllers/userController");
+const { userValidate } = require("../validation/UserValidation");
+const { checkDuplicatePhoneOrEmail, checkUserName } = require("../middleware/VerifySignUp");
+const { protectedRoute } = require("../middleware/authMiddleware");
+const router = express.Router();
+// router.route("/").post(registerUser).get(protectedRoute, getUser);
+router.post("/register", userValidate('createUser'), checkDuplicatePhoneOrEmail, checkUserName, registerUser);
+router.post("/activate-account",protectedRoute, activateAccount);
+router.post("/resent-email-verification",protectedRoute,resendEmailVerification );
+router.post("/password-resend-code ",passwordResendCode );
+router.post("/login", login);
+module.exports = router;    
