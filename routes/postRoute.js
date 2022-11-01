@@ -1,8 +1,6 @@
 const express = require("express");
 const {
   registerUser,
-  refreshToken,
-  logout,
   checkPasswordResetCode,
   passwordChange,
   activateAccount,
@@ -10,6 +8,7 @@ const {
   resendEmailVerification,
   passwordResendCode,
   searchByEmail,
+  logout,
 } = require("../controllers/userController");
 const { userValidate } = require("../validation/UserValidation");
 const {
@@ -37,6 +36,5 @@ router.post("/password-resend-code", passwordResendCode);
 router.get("/search-by-email", protectedRoute, searchByEmail);
 router.post("/check-passwordreset-code", checkPasswordResetCode);
 router.post("/login", login);
-router.get("/refresh", refreshToken);
-router.get("/logout", logout);
+router.post("/logout", logout);
 module.exports = router;

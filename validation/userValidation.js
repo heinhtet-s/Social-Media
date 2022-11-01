@@ -17,5 +17,18 @@ exports.userValidate = (method) => {
                 body('gender').exists().isIn(['male', 'female'])
             ];
         }
+        case'changePassword' : {
+            return [
+                body('id').exists(),
+                body('password', "Password should be combination of one uppercase , one lower case, one special char, one digit and min 8  long").matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i"),
+                body('confirm_password', 'Confirm Password is required').exists()
+                    .trim().custom(async (confirmPassword, { req }) => {
+                        const password = req.body.password;
+                        if (password !== confirmPassword) {
+                            throw new Error('Passwords must be same')
+                        }
+                    }),
+            ]
+        }
     }
 }
