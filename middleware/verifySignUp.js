@@ -7,13 +7,11 @@ checkDuplicatePhoneOrEmail = asyncHandler(async (req, res, next) => {
         email: req.body.email
     }).exec((err, user) => {
         if (err) {
-            res.status(500).json(error(err.message || "Some error occurred while creating the User.", 500));
-            return;
+            return res.status(500).json(error(err.message || "Some error occurred while creating the User.", 500));
         }
         if (user) {
             console.log("ge", user,);
-            res.status(400).json(error('User already exists ufeiufwo', 400));
-            return;
+            return res.status(400).json(error('User already exists ufeiufwo', 400));
         } else {
             next();
         }

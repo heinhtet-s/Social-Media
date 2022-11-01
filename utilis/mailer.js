@@ -37,14 +37,14 @@ exports.sendVerificationEmail = (email, name, url) => {
         return res;
     });
 };
-exports.sendOtpEmail = (email, name, code) => {
+exports.sentResetPasswordEmail = (email, name, code) => {
     const auth = new OAuth2(
         process.env.MAILING_ID,
         process.env.MAILING_SECRET,
         process.env.MAILING_REFRESH,
         oauth_link
     );
-    console.log("ggg", auth);
+
     auth.setCredentials({
         refresh_token: process.env.MAILING_REFRESH,
     });
